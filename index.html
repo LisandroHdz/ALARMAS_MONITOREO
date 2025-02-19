@@ -9,6 +9,9 @@
 <body>
     <h1>Monitor de Alarmas</h1>
     <div>
+        <label for="alarm-date">Fecha de la alarma:</label>
+        <input type="date" id="alarm-date">
+        <br><br>
         <label for="alarm-time">Hora de la alarma:</label>
         <input type="time" id="alarm-time">
         <br><br>
@@ -22,7 +25,7 @@
     <table id="active-alarms">
         <thead>
             <tr>
-                <th>Hora</th>
+                <th>Fecha y Hora</th>
                 <th>Mensaje</th>
                 <th>Acción</th>
             </tr>
@@ -36,7 +39,7 @@
     <table id="past-alarms">
         <thead>
             <tr>
-                <th>Hora</th>
+                <th>Fecha y Hora</th>
                 <th>Mensaje</th>
             </tr>
         </thead>

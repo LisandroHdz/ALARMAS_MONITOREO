@@ -1,14 +1,16 @@
 let alarms = []; // Array para almacenar las alarmas
 
 function setAlarm() {
-    const alarmTime = document.getElementById('alarm-time').value;
+    const alarmDateInput = document.getElementById('alarm-date').value;
+    const alarmTimeInput = document.getElementById('alarm-time').value;
     const alarmMessage = document.getElementById('alarm-message').value;
 
-    console.log("Hora seleccionada:", alarmTime); // Depuración
+    console.log("Fecha seleccionada:", alarmDateInput); // Depuración
+    console.log("Hora seleccionada:", alarmTimeInput); // Depuración
     console.log("Mensaje ingresado:", alarmMessage); // Depuración
 
-    if (!alarmTime) {
-        alert('Por favor, selecciona una hora para la alarma.');
+    if (!alarmDateInput || !alarmTimeInput) {
+        alert('Por favor, selecciona una fecha y hora para la alarma.');
         return;
     }
 
@@ -17,23 +19,22 @@ function setAlarm() {
         return;
     }
 
+    // Combinar fecha y hora en un solo objeto Date
+    const alarmDateTime = new Date(`${alarmDateInput}T${alarmTimeInput}`);
+    console.log("Fecha y hora de la alarma (Date):", alarmDateTime); // Depuración
+
     const now = new Date();
-    const [alarmHours, alarmMinutes] = alarmTime.split(':');
-    const alarmDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), alarmHours, alarmMinutes);
-
-    console.log("Hora de la alarma (Date):", alarmDate); // Depuración
-
-    const timeDiff = alarmDate - now;
+    const timeDiff = alarmDateTime - now;
     console.log("Diferencia de tiempo (ms):", timeDiff); // Depuración
 
     if (timeDiff < 0) {
-        alert('La hora seleccionada ya ha pasado.');
+        alert('La fecha y hora seleccionadas ya han pasado.');
         return;
     }
 
     // Agregar la alarma al array
     const alarm = {
-        time: alarmTime,
+        dateTime: alarmDateTime.toLocaleString(), // Formato legible de fecha y hora
         message: alarmMessage,
         timeoutId: setTimeout(() => triggerAlarm(alarm), timeDiff)
     };
@@ -42,7 +43,7 @@ function setAlarm() {
     // Actualizar la tabla de alarmas activas
     updateActiveAlarmsTable();
 
-    alert(`Alarma establecida para las ${alarmTime} con el mensaje: "${alarmMessage}"`);
+    alert(`Alarma establecida para el ${alarmDateTime.toLocaleString()} con el mensaje: "${alarmMessage}"`);
 }
 
 function triggerAlarm(alarm) {
@@ -64,7 +65,7 @@ function moveAlarmToPast(alarm) {
     // Agregar la alarma a la tabla de alarmas pasadas
     const pastAlarmsTable = document.getElementById('past-alarms').getElementsByTagName('tbody')[0];
     const newRow = pastAlarmsTable.insertRow();
-    newRow.insertCell().textContent = alarm.time;
+    newRow.insertCell().textContent = alarm.dateTime;
     newRow.insertCell().textContent = alarm.message;
 }
 
@@ -75,7 +76,7 @@ function updateActiveAlarmsTable() {
     // Agregar cada alarma activa a la tabla
     alarms.forEach(alarm => {
         const newRow = activeAlarmsTable.insertRow();
-        newRow.insertCell().textContent = alarm.time;
+        newRow.insertCell().textContent = alarm.dateTime;
         newRow.insertCell().textContent = alarm.message;
 
         // Botón para eliminar la alarma manualmente
