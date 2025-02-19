@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarmas de Transporte Pesado</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Monitor de Alarmas</h1>
+    <div>
+        <label for="alarm-time">Hora de la alarma:</label>
+        <input type="time" id="alarm-time">
+        <br><br>
+        <label for="alarm-message">Mensaje de la alarma:</label>
+        <input type="text" id="alarm-message" placeholder="Ingresa un mensaje personalizado">
+        <br><br>
+        <button onclick="setAlarm()">Establecer Alarma</button>
+    </div>
+
+    <h2>Alarmas Activas</h2>
+    <table id="active-alarms">
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Mensaje</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las alarmas activas se agregarán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <h2>Alarmas Pasadas</h2>
+    <table id="past-alarms">
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las alarmas pasadas se moverán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
